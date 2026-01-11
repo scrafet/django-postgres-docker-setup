@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Docker y Base de Datos
+db_data/
+.env
+
+# Windows
+Thumbs.db
+Desktop.ini
