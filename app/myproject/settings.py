@@ -39,12 +39,14 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
 ]
 
 MIDDLEWARE = [
@@ -62,7 +64,7 @@ ROOT_URLCONF = 'myproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,3 +135,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Mi Admin Pro",
+    "site_header": "Proyecto 03",
+    "site_brand": "Dashboard Admin",
+    "welcome_sign": "Bienvenido al sistema de gestión",
+    "copyright": "Antigravity Ltd",
+    "search_model": ["auth.User"],
+    "show_ui_builder": True,  # <--- ESTO ES MAGIA: Te permite cambiar colores en vivo
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "darkly", # Hay muchos: flatly, slate, lumen, etc.
+}
