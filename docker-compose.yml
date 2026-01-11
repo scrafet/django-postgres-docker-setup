@@ -3,10 +3,8 @@ services:
     image: postgres:15
     volumes:
       - ./db_data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=mi_base_de_datos
-      - POSTGRES_USER=usuario_django
-      - POSTGRES_PASSWORD=password_secreto
+    env_file:
+      - .env # <--- Docker leerá las credenciales de aquí
     ports:
       - "5432:5432"
 
@@ -17,7 +15,7 @@ services:
       - ./app:/app
     ports:
       - "8000:8000"
-    environment:
-      - DATABASE_URL=postgres://usuario_django:password_secreto@db:5432/mi_base_de_datos
+    env_file:
+      - .env # <--- Django también las leerá
     depends_on:
       - db
