@@ -1,33 +1,122 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-    <title>Mi Dashboard Pro</title>
+    <meta charset="UTF-8">
+    <title>Dashboard DataTables</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
     <style>
-        body {
-            font-family: sans-serif;
-            background: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding-top: 50px;
+        /* Estilos para que el contenido sea legible */
+        #miTabla tbody tr {
+            color: #333 !important;
+            background-color: #ffffff !important;
         }
 
-        .card {
-            background: #333;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-            border: 1px solid cyan;
+        /* Estilo para la cabecera de la tabla */
+        #miTabla thead th {
+            background-color: #007bff;
+            color: white;
+            border-bottom: 2px solid #0056b3;
+        }
+
+        .progress {
+            margin-bottom: 0;
+            background-color: #e9ecef;
+        }
+
+        .main-header-title {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 25px;
         }
     </style>
 </head>
 
-<body>
-    <h1>🚀 Proyecto 03: Django + Docker</h1>
-    <div class="card">
-        <p>¡Bienvenido al sistema! Esta página es personalizada.</p>
-        <p>Estado de la Base de Datos: <b>Conectada (PostgreSQL)</b></p>
+<body class="bg-dark">
+    <div class="container mt-5">
+        <h1 class="text-center main-header-title">
+            <i class="fas fa-rocket"></i> Panel de Control del Proyecto
+        </h1>
+
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title" style="color: #333;">
+                    <i class="fas fa-microchip mr-1"></i>
+                    <strong>INFRAESTRUCTURA:</strong> Monitor de Servicios
+                </h3>
+            </div>
+
+            <div class="card-body">
+                <table id="miTabla" class="table table-bordered table-striped w-100">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag"></i> ID</th>
+                            <th><i class="fas fa-cube"></i> Nombre del Servicio</th>
+                            <th><i class="fas fa-info-circle"></i> Estado</th>
+                            <th><i class="fas fa-tachometer-alt"></i> Uso de CPU</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in servicios %}
+                        <tr>
+                            <td>{{ s.id }}</td>
+                            <td><strong>{{ s.nombre }}</strong></td>
+                            <td>
+                                {% if s.estado == "Activo" %}
+                                <span class="badge badge-success px-3">Activo</span>
+                                {% elif s.estado == "Error" %}
+                                <span class="badge badge-danger px-3">Error</span>
+                                {% else %}
+                                <span class="badge badge-warning text-white px-3">{{ s.estado }}</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="progress progress-xs">
+                                    <div class="progress-bar {% if '9' in s.uso_cpu %}bg-danger{% else %}bg-primary{% endif %}"
+                                        style="width: {{ s.uso_cpu }}"></div>
+                                </div>
+                                <small class="text-muted">Capacidad: {{ s.uso_cpu }}</small>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">No se encontraron datos en Python.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer text-muted text-right">
+                <small>Datos servidos desde <strong>Django Backend</strong></small>
+            </div>
+        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#miTabla').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json"
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,88 @@
+Prompt Maestro para Continuar el Proyecto
+
+Copia y guarda este prompt. Está diseñado para que, cuando vuelvas a empezar una sesión conmigo (o cualquier IA), yo pueda entender inmediatamente la arquitectura que construimos y no perdamos tiempo.
+
+    Prompt de Continuidad: "Actúa como mi experto en Django y Docker. Estamos trabajando en el Proyecto 03: Django + PostgreSQL + Docker.
+
+    Estado actual del proyecto:
+
+        Infraestructura: Docker Compose con dos servicios (web y db). PostgreSQL 15 como base de datos.
+
+        Seguridad: Uso de archivo .env para credenciales (SECRET_KEY, DB_HOST, etc.) y python-dotenv en settings.py.
+
+        Arquitectura Django: Una app llamada core y una carpeta global de templates/.
+
+        Interfaz: Implementamos django-jazzmin para el Admin y una página de inicio (inicio.html) personalizada con DataTables.net, AdminLTE 3 y Bootstrap 4.
+
+        Lógica actual: La vista home en core/views.py envía una lista de diccionarios (datos estáticos) que se renderizan en una tabla interactiva con estados de color y barras de progreso.
+
+    Objetivo: Ayúdame a seguir desarrollando. Por favor, analiza esta estructura y sugiereme el siguiente paso lógico para convertir estos datos estáticos en modelos reales de base de datos."
+
+🚀 Tu hoja de ruta (Roadmap)
+
+Si quieres saber qué podrías pedirle a la IA con ese prompt, aquí tienes 3 ideas de "Nivel Senior":
+
+    Persistencia Real: "Convirtamos los datos estáticos de la tabla de servicios en un modelo de Django para poder editarlos desde el Panel de Jazzmin".
+
+    API REST: "Crea un endpoint con Django Rest Framework para que la tabla de DataTables cargue los datos vía AJAX (sin recargar la página)".
+
+    Gráficos: "Añade Chart.js al dashboard para mostrar un gráfico de torta con el resumen de los estados de los servicios".
+
+¿Te gustaría que te ayude con alguna de estas tres opciones ahora mismo o prefieres descansar y usar el prompt en nuestra próxima sesión? ¡Has hecho un trabajo increíble configurando todo el stack hoy!
+
+
+------------------------------------------------------------Anti---------------------------
+Flujo de Maniobra: Antigravity + GitHub
+
+Para continuar el desarrollo, el proceso ideal sigue este ciclo:
+
+    Sincronización Inicial: Antes de pedir una mejora, asegúrate de que tu main local y remoto están al día.
+
+    Contextualización: Entrégale a Antigravity el Prompt Maestro que generamos anteriormente junto con la salida de un tree o dir para que vea si hubo cambios estructurales.
+
+    Creación de Rama de Mejora (Feature Branch): Nunca trabajes directamente en main cuando pidas una mejora compleja.
+
+    Implementación y Validación: Copia el código que te genere la IA, pruébalo en Docker y reporta errores si aparecen.
+
+📝 Prompt de Flujo para Antigravity
+
+Copia este bloque adicional y úsalo junto con el prompt anterior cuando quieras retomar el proyecto:
+
+    Protocolo de Maniobra con GitHub: "Para este desarrollo, seguiremos este flujo de Git:
+
+        Crearé una rama llamada feature/[nombre-de-la-mejora].
+
+        Te pediré que analices archivos específicos (como views.py o models.py).
+
+        Implementaremos los cambios y, tras verificar que docker-compose up funciona, haré el merge a main.
+
+    Tarea actual: Revisa mi estructura de archivos actual y dime si necesitas que te pegue el contenido de algún archivo específico para comenzar con la siguiente mejora."
+
+🛠️ Comandos de Git para la "Maniobra"
+
+Cuando Antigravity te sugiera una nueva funcionalidad, sigue esta secuencia de comandos en tu terminal:
+# 1. Crear una rama nueva para no romper lo que ya funciona
+git checkout -b feature/nueva-mejora
+
+# 2. Realizar los cambios sugeridos por la IA en el código
+
+# 3. Probar en Docker
+docker-compose up --build
+
+# 4. Si todo está OK, guardar y subir
+git add .
+git commit -m "Agregada funcionalidad X sugerida por Antigravity"
+git push origin feature/nueva-mejora
+
+# 5. Fusionar con la rama principal
+git checkout main
+git merge feature/nueva-mejora
+git push origin main
+
+
+/*
+Consejo Pro para Antigravity
+
+Si en algún momento el proyecto falla tras un cambio, simplemente dile: "Antigravity, el último cambio en el archivo X causó un error de Docker. Aquí tienes el log de la terminal, ayúdame a hacer un rollback o corregirlo."
+
+¿Quieres que dejemos planteada la primera "Feature Branch" para tu próxima sesión o prefieres cerrar aquí por hoy?
