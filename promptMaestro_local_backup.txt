@@ -1,0 +1,58 @@
+Prompt Maestro para Continuar el Proyecto (Actualizado al 12/01/2026)
+
+Copia y guarda este prompt. Está diseñado para que, cuando vuelvas a empezar una sesión conmigo (o cualquier IA), yo pueda entender inmediatamente la arquitectura que construimos y no perdamos tiempo.
+
+    Prompt de Continuidad: "Actúa como mi experto en Django y Docker. Estamos trabajando en el Proyecto 03: Django + PostgreSQL + Docker (Repo: scrafet/django-postgres-docker-setup).
+
+    Estado actual del proyecto:
+
+        1. Infraestructura:
+           - Docker Compose activo con servicios `web` (Django 5) y `db` (Postgres 15).
+           - Entorno local validado y funcionando en http://localhost:8000.
+           - Usuario Admin: `admin` / `admin123`.
+
+        2. Pila Tecnológica (Stack):
+           - Backend: Django 5.0.1.
+           - Frontend: Bootstrap 5 con tema **Bootswatch Darkly** (para coincidir con Jazzmin).
+           - Admin Interface: `django-jazzmin` configurado con tema oscuro.
+           - Estilos: CSS personalizado encapsulado en `static/css/styles.css` para Dashboard Layout.
+
+        3. Arquitectura de Plantillas:
+           - Base modular: `base.html` integra `includes/header.html`, `includes/sidebar.html` y `includes/footer.html`.
+           - Diseño: Dashboard moderno con Sidebar colapsable (Bootstrap native) y Header sticky.
+
+        4. Funcionalidad Actual:
+           - Autenticación: Sistema de Login nativo (`LoginRequiredMixin` global). Redirige a login si no hay sesión.
+           - Vista Principal (`ItemListView`): Actualmente lista **Usuarios del Sistema** (User Model) en lugar de ítems genéricos.
+           - Tabla: Renderiza Avatar, Username, Email, Status y Fecha de Registro de los usuarios reales de la BD.
+
+        5. Control de Versiones (Git):
+           - Rama actual de trabajo: `feature/dashboard-improvements` (ya pusheada al remoto).
+           - Último commit: Implementación de layout dashboard moderno, separación de plantillas y listado de usuarios.
+
+    Objetivo Próxima Sesión: Analizar la estructura actual y comenzar a extender la funcionalidad de negocio real del Dashboard (más allá de listar usuarios), posiblemente creando modelos de negocio (Productos/Ventas) o integrando gráficos."
+
+------------------------------------------------------------
+Flujo de Trabajo Sugerido para la Próxima Sesión:
+
+1. Iniciar sesión y validar estado:
+   `git checkout feature/dashboard-improvements`
+   `git pull origin feature/dashboard-improvements`
+   `docker-compose up -d --build`
+
+2. Continuar desarrollo:
+   - Si la tarea es nueva, crear nueva rama: `git checkout -b feature/nueva-funcionalidad`
+   - Si es refactorización, seguir en la actual.
+
+3. Comandos Importantes:
+   - Crear superusuario: (Ya creado: `admin`/`admin123`)
+   - Migraciones: `docker-compose exec web python manage.py migrate`
+   - Logs: `docker-compose logs -f web`
+
+------------------------------------------------------------
+Log de Cambios Recientes (Session Recap):
+- Se solucionaron conflictos de git en `promptMaestro.txt`.
+- Se configuró Docker totalmente funcional.
+- Se separó el frontend en componentes reutilizables (Header/Footer/Sidebar).
+- Se implementó diseño visual "Dark Mode Premium" consistente con el Admin.
+- Se cambió la vista de demostración para listar datos reales (Usuarios) en lugar de mocks estáticos.
