@@ -16,28 +16,45 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Created At</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Date Joined</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in items %}
+                    {% for user in users %}
                     <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>${{ item.price }}</td>
-                        <td>{{ item.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>{{ user.id }}</td>
                         <td>
-                            <a href="{% url 'item_edit' item.pk %}" class="btn btn-warning btn-sm">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar me-2 bg-primary text-white rounded-circle d-flex justify-content-center align-items-center"
+                                    style="width: 32px; height: 32px;">
+                                    {{ user.username.0|upper }}
+                                </div>
+                                {{ user.username }}
+                            </div>
+                        </td>
+                        <td>{{ user.email|default:"-" }}</td>
+                        <td>
+                            {% if user.is_staff %}
+                            <span class="badge bg-success">Admin</span>
+                            {% else %}
+                            <span class="badge bg-secondary">User</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <a href="#" class="btn btn-warning btn-sm" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <button class="btn btn-danger btn-sm delete-btn"
-                                    data-id="{{ item.pk }}"
-                                    data-url="{% url 'item_delete' item.pk %}">
+                            {% if not user.is_superuser %}
+                            <button class="btn btn-danger btn-sm delete-btn" data-id="{{ user.pk }}" # This assumes
+                                we'll fix the delete logic later if needed disabled>
                                 <i class="fas fa-trash"></i>
                             </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
@@ -56,13 +73,13 @@
 
 {% block extra_js %}
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#datatable').DataTable({
             responsive: true
         });
 
         // SweetAlert2 for Delete Confirmation
-        $('.delete-btn').on('click', function() {
+        $('.delete-btn').on('click', function () {
             var url = $(this).data('url');
 
             Swal.fire({

@@ -61,10 +61,11 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
 class ItemListView(BaseListView):
-    model = Item
+    from django.contrib.auth.models import User
+    model = User
     template_name = 'core/item_list.html'
-    context_object_name = 'items'
-    title = 'Item List'
+    context_object_name = 'users'
+    title = 'User List'
 
 class ItemCreateView(BaseCreateView):
     model = Item

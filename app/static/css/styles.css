@@ -1,0 +1,102 @@
+/* Main Layout */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    min-height: calc(100vh - 56px);
+    box-shadow: inset -1px 0 0 rgba(255, 255, 255, .1);
+    /* Lighter border for dark mode */
+    background: var(--bs-body-bg);
+    /* Use theme background */
+    transition: all 0.3s;
+}
+
+.sidebar .nav-link,
+.sidebar .list-group-item {
+    font-weight: 500;
+    color: var(--bs-body-color);
+    /* Use theme text color */
+    border: none;
+    border-radius: 0.5rem;
+    margin: 0.2rem 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .list-group-item:hover {
+    color: #fff;
+    background-color: var(--bs-primary);
+    /* Use primary color */
+    transform: translateX(5px);
+}
+
+.sidebar .nav-link.active,
+.sidebar .list-group-item.active {
+    color: #fff;
+    background-color: var(--bs-primary);
+    font-weight: 600;
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Navbar */
+/* Let Bootswatch handle navbar colors, usually primary or dark */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Cards & Content */
+.card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    background-color: var(--bs-card-bg);
+    /* Ensure card bg is set */
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4);
+}
+
+/* Footer */
+.footer {
+    background-color: var(--bs-body-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
