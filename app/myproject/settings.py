@@ -20,18 +20,14 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Ahora reemplaza los valores fijos por os.environ.get()
-SECRET_KEY = os.environ.get('SECRET_KEY', 'clave-por-defecto-si-no-hay-env')
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l-_$jddbaw&3c57^7#*089_xo)6)620vf2dc30sm@mob@3x9db'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-l-_$jddbaw&3c57^7#*089_xo)6)620vf2dc30sm@mob@3x9db')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -83,16 +79,24 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+if os.environ.get('DB_NAME'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -130,6 +134,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -143,9 +149,31 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Bienvenido al sistema de gestión",
     "copyright": "Antigravity Ltd",
     "search_model": ["auth.User"],
-    "show_ui_builder": True,  # <--- ESTO ES MAGIA: Te permite cambiar colores en vivo
+    "show_ui_builder": True,
 }
 
 JAZZMIN_UI_TWEAKS = {
-    "theme": "darkly", # Hay muchos: flatly, slate, lumen, etc.
+    "theme": "darkly",
 }
+
+# Login/Logout Configuration
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'item_list'
+LOGOUT_REDIRECT_URL = 'login'
+
+# Session Configuration
+SESSION_COOKIE_AGE = 3600  # 1 hour
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Security Settings
+# In production (DEBUG=False), these should be enforced.
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 3600
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
